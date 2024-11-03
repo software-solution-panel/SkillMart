@@ -1,2 +1,3 @@
 # SkillMart
-Connect skilled workers with those looking to hire them.
+
+Perfect way to find people to do your jobs. Any Work - Any Time - Any Where
