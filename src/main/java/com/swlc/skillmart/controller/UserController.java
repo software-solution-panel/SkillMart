@@ -2,10 +2,11 @@ package com.swlc.skillmart.controller;
 
 import com.swlc.skillmart.dto.UserDTO;
 import com.swlc.skillmart.service.UserService;
+import com.swlc.skillmart.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Chathumal Jayasingha | [chathumaljayasingha@hotmail.com]
@@ -14,18 +15,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
+@RequestMapping("api/v1")
 public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @GetMapping
-    private String test(){
-        UserDTO userDTO = new UserDTO();
-        userDTO.setFirstName("Chathumal");
-        userDTO.setLastName("Jayasinghe");
-        userDTO.setAddress("Horana");
-        Boolean b = userService.addUser(userDTO);
-        return b.toString();
+    @PostMapping("/adduser")
+    private ResponseEntity<StandardResponse<?>> addUser(@RequestBody UserDTO dto){
+        return userService.addUser(dto);
     }
+
+
+
+
+
+
+
 }

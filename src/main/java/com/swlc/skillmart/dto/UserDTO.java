@@ -17,11 +17,14 @@ import java.sql.Date;
 @NoArgsConstructor
 @Data
 public class UserDTO implements Serializable {
-    private Long id;
     private String firstName;
     private String lastName;
     private String address;
     private String mobile;
-
-
+    private Boolean available;
+    private String type;
+    private String serviceArea;
+    private String serviceType;
+    private String remark;
+    private String links;
 }
