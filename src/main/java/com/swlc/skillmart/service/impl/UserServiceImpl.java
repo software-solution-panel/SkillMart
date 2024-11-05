@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<StandardResponse<?>> addUser(UserDTO dto) {
         try {
             User map = modelMapper.map(dto, User.class);
+            map.setActive(true);
             userRepository.save(map);
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<StandardResponse<?>> getAllActiveUsers() {
+    public ResponseEntity<StandardResponse<?>> findAllActiveUsers() {
         List<UserDTO> userDTOList=null;
         try {
             List<User> allByActive = userRepository.findAllActiveUsers();
@@ -53,4 +54,50 @@ public class UserServiceImpl implements UserService {
         }
         return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<StandardResponse<?>> findAllUsers() {
+        List<UserDTO> userDTOList=null;
+        try {
+            List<User> allByActive = userRepository.findAll();
+            userDTOList = Arrays.asList(modelMapper.map(allByActive, UserDTO[].class));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot Get All Active and Inactive Users","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
+    }
+
+
+
+    @Override
+    public ResponseEntity<StandardResponse<?>> findAllActiveAvailableUsers() {
+        List<UserDTO> userDTOList=null;
+        try {
+            List<User> allByActive = userRepository.findAllActiveAvailableUsers();
+            userDTOList = Arrays.asList(modelMapper.map(allByActive, UserDTO[].class));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot Get All Active and available Users","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
+    }
+
+
+    @Override
+    public ResponseEntity<StandardResponse<?>> findAllAvailableUsers() {
+        List<UserDTO> userDTOList=null;
+        try {
+            List<User> allByActive = userRepository.findAllAvailableUsers();
+            userDTOList = Arrays.asList(modelMapper.map(allByActive, UserDTO[].class));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot Get available Users","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
+    }
+
+
+
+
 }

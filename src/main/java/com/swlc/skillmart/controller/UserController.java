@@ -26,11 +26,27 @@ public class UserController {
         return userService.addUser(dto);
     }
 
-
-    @GetMapping("/getAllActive")
-    private ResponseEntity<StandardResponse<?>> getAll() {
-        return userService.getAllActiveUsers();
+    @GetMapping("/findAllActiveUsers")
+    private ResponseEntity<StandardResponse<?>> findAllActiveUsers() {
+        return userService.findAllActiveUsers();
     }
+
+    @GetMapping("/findAllUsers")
+    private ResponseEntity<StandardResponse<?>> findAllUsers() {
+        return userService.findAllUsers();
+    }
+
+    @GetMapping("/findAllActiveAvailableUsers")
+    private ResponseEntity<StandardResponse<?>> findAllActiveAvailableUsers() {
+        return userService.findAllUsers();
+    }
+
+    @GetMapping("/findAllAvailableUsers")
+    private ResponseEntity<StandardResponse<?>> findAllAvailableUsers() {
+        return userService.findAllAvailableUsers();
+    }
+
+
 
 
 }

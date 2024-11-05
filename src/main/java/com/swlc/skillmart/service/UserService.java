@@ -10,5 +10,8 @@ import org.springframework.http.ResponseEntity;
  */
 public interface UserService {
     ResponseEntity<StandardResponse<?>> addUser(UserDTO dto);
-    ResponseEntity<StandardResponse<?>> getAllActiveUsers();
+    ResponseEntity<StandardResponse<?>> findAllActiveUsers();
+    ResponseEntity<StandardResponse<?>> findAllUsers();
+    ResponseEntity<StandardResponse<?>> findAllActiveAvailableUsers();
+    ResponseEntity<StandardResponse<?>> findAllAvailableUsers();
 }
