@@ -54,6 +54,13 @@ public class UserController {
     }
 
 
+    @PutMapping("/alterUserById")
+    private ResponseEntity<StandardResponse<?>> alterUserById(@RequestParam Integer id,@RequestBody UserDTO dto) {
+        if (id != null){
+            return userService.alterUserById(dto,id);
+        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid user id", "User id not valid"), HttpStatus.BAD_REQUEST);
+    }
+
 
 
 

@@ -15,4 +15,5 @@ public interface UserService {
     ResponseEntity<StandardResponse<?>> findAllActiveAvailableUsers();
     ResponseEntity<StandardResponse<?>> findAllAvailableUsers();
     ResponseEntity<StandardResponse<?>> findById(Integer id);
+    ResponseEntity<StandardResponse<?>> alterUserById(UserDTO dto,Integer id);
 }

@@ -114,6 +114,34 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(new StandardResponse<>(200, "User founded", userDTO), HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<StandardResponse<?>> alterUserById(UserDTO dto,Integer id) {
+        User byId = null;
+        try {
+             byId=userRepository.findById(id);
+            if (byId == null) {
+                return new ResponseEntity<>(new StandardResponse<>(HttpStatus.NOT_FOUND.value(), "User Not found for update","Not Found"), HttpStatus.NOT_FOUND);
+            } else {
+                byId.setType(dto.getType());
+                byId.setFirstName(dto.getFirstName());
+                byId.setLastName(dto.getLastName());
+                byId.setAddress(dto.getAddress());
+                byId.setMobile(dto.getMobile());
+                byId.setAvailable(dto.getAvailable());
+                byId.setActive(true);
+                byId.setServiceArea(dto.getServiceArea());
+                byId.setServiceType(dto.getServiceType());
+                byId.setRemark(dto.getRemark());
+                byId.setLinks(dto.getLinks());
+                userRepository.save(byId);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot find user by id","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Update success", byId), HttpStatus.OK);
+    }
+
 
 
 }
