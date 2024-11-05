@@ -38,13 +38,22 @@ public class UserController {
 
     @GetMapping("/findAllActiveAvailableUsers")
     private ResponseEntity<StandardResponse<?>> findAllActiveAvailableUsers() {
-        return userService.findAllUsers();
+        return userService.findAllActiveAvailableUsers();
     }
 
     @GetMapping("/findAllAvailableUsers")
     private ResponseEntity<StandardResponse<?>> findAllAvailableUsers() {
         return userService.findAllAvailableUsers();
     }
+
+    @GetMapping("/findById")
+    private ResponseEntity<StandardResponse<?>> findById(@RequestParam Integer id) {
+        if (id != null){
+            return userService.findById(id);
+        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid user id", "User id not valid"), HttpStatus.BAD_REQUEST);
+    }
+
+
 
 
 

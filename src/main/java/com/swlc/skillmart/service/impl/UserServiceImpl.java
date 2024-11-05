@@ -97,6 +97,22 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<StandardResponse<?>> findById(Integer id) {
+        UserDTO userDTO=null;
+        try {
+            User byId = userRepository.findById(id);
+            if (byId == null) {
+                return new ResponseEntity<>(new StandardResponse<>(HttpStatus.NOT_FOUND.value(), "User Not found","Not Found"), HttpStatus.NOT_FOUND);
+            } else {
+                userDTO = modelMapper.map(byId, UserDTO.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot find user by id","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "User founded", userDTO), HttpStatus.OK);
+    }
 
 
 
