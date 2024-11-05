@@ -61,6 +61,12 @@ public class UserController {
         } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid user id", "User id not valid"), HttpStatus.BAD_REQUEST);
     }
 
+    @DeleteMapping("/removeUserById")
+    private ResponseEntity<StandardResponse<?>> removeUserById(@RequestParam Integer id) {
+        if (id != null){
+            return userService.removeUserById(id);
+        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid user id", "User id not valid"), HttpStatus.BAD_REQUEST);
+    }
 
 
 

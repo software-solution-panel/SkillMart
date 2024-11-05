@@ -144,4 +144,27 @@ public class UserServiceImpl implements UserService {
 
 
 
+    @Override
+    public ResponseEntity<StandardResponse<?>> removeUserById(Integer id) {
+        User byId = null;
+        try {
+            byId=userRepository.findById(id);
+            if (byId == null) {
+                return new ResponseEntity<>(new StandardResponse<>(HttpStatus.NOT_FOUND.value(), "User Not found for remove user process","Not Found"), HttpStatus.NOT_FOUND);
+            } else {
+                User user = userRepository.save(byId);
+                user.setActive(false);
+                userRepository.save(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot find user by id in remove user","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "User remove success", byId), HttpStatus.OK);
+    }
+
+
+
+
+
 }
