@@ -11,6 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.random.RandomGeneratorFactory;
+
 /**
  * @author Chathumal Jayasingha | [chathumaljayasingha@hotmail.com]
  * @since - 11/1/24 | 2024-November-01[Friday]
@@ -35,5 +39,18 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot save","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(new StandardResponse<>(200, "Save success", "OK"), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<StandardResponse<?>> getAllActiveUsers() {
+        List<UserDTO> userDTOList=null;
+        try {
+            List<User> allByActive = userRepository.findAllActiveUsers();
+            userDTOList = Arrays.asList(modelMapper.map(allByActive, UserDTO[].class));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot Get All Active Users","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
     }
 }

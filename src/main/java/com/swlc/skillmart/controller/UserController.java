@@ -20,15 +20,17 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
     @PostMapping("/adduser")
-    private ResponseEntity<StandardResponse<?>> addUser(@RequestBody UserDTO dto){
+    private ResponseEntity<StandardResponse<?>> addUser(@RequestBody UserDTO dto) {
         return userService.addUser(dto);
     }
 
 
-
-
-
+    @GetMapping("/getAllActive")
+    private ResponseEntity<StandardResponse<?>> getAll() {
+        return userService.getAllActiveUsers();
+    }
 
 
 }
