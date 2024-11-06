@@ -21,8 +21,11 @@ public class Rate implements Serializable {
     private String username;
     private String contact;
     private String comment;
-    private String stars;
+    private Integer stars;
     private Boolean active;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId", nullable = false)
+    private User id;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
