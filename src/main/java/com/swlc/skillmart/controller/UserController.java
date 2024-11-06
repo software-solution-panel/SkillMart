@@ -52,6 +52,14 @@ public class UserController {
         } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid service area", "service area not valid"), HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/findAllByServiceType")
+    private ResponseEntity<StandardResponse<?>> findAllByServiceType(@RequestParam String serviceType) {
+        if (serviceType != null){
+            return userService.findAllByServiceType(serviceType);
+        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid service type", "service type not valid"), HttpStatus.BAD_REQUEST);
+    }
+
+
     @GetMapping("/findById")
     private ResponseEntity<StandardResponse<?>> findById(@RequestParam Integer id) {
         if (id != null){

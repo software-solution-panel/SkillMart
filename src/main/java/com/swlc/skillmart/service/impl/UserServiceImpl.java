@@ -109,6 +109,18 @@ public class UserServiceImpl implements UserService {
         }
         return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
     }
+    @Override
+    public ResponseEntity<StandardResponse<?>> findAllByServiceType(String serviceType) {
+        List<UserDTO> userDTOList=null;
+        try {
+            List<User> allByServiceType = userRepository.findAllByServiceType(serviceType);
+            userDTOList = Arrays.asList(modelMapper.map(allByServiceType, UserDTO[].class));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot Get Users by service type","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
+    }
 
     @Override
     public ResponseEntity<StandardResponse<?>> findById(Integer id) {

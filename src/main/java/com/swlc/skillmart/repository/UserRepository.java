@@ -23,7 +23,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(nativeQuery = true, value = "select * from user where service_area=:serviceArea and active=1 ")
     List<User> findAllByServiceArea(@Param("serviceArea") String serviceArea);
 
-
+    @Query(nativeQuery = true, value = "select * from user where service_type=:serviceType and active=1 ")
+    List<User> findAllByServiceType(@Param("serviceType") String serviceType);
 
 
 }
