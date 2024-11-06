@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/user")
 public class UserController {
 
     @Autowired
@@ -44,6 +44,12 @@ public class UserController {
     @GetMapping("/findAllAvailableUsers")
     private ResponseEntity<StandardResponse<?>> findAllAvailableUsers() {
         return userService.findAllAvailableUsers();
+    }
+    @GetMapping("/findAllByServiceArea")
+    private ResponseEntity<StandardResponse<?>> findAllByServiceArea(@RequestParam String serviceArea) {
+        if (serviceArea != null){
+            return userService.findAllByServiceArea(serviceArea);
+        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid service area", "service area not valid"), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/findById")

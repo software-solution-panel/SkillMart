@@ -20,6 +20,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(nativeQuery = true, value = "select * from user where id=:id ")
     User findById(@Param("id") Integer id);
 
+    @Query(nativeQuery = true, value = "select * from user where service_area=:serviceArea and active=1 ")
+    List<User> findAllByServiceArea(@Param("serviceArea") String serviceArea);
+
 
 
 

@@ -98,6 +98,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ResponseEntity<StandardResponse<?>> findAllByServiceArea(String serviceArea) {
+        List<UserDTO> userDTOList=null;
+        try {
+            List<User> allByServiceArea = userRepository.findAllByServiceArea(serviceArea);
+            userDTOList = Arrays.asList(modelMapper.map(allByServiceArea, UserDTO[].class));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot Get Users by service area","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<StandardResponse<?>> findById(Integer id) {
         UserDTO userDTO=null;
         try {
