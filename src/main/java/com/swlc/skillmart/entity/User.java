@@ -33,7 +33,7 @@ public class User implements Serializable {
     private String type;
     private String serviceArea;
     private String serviceType;
-    private String remark;
+    private String qualification;
     private String links;
     private Boolean active;
     @CreationTimestamp

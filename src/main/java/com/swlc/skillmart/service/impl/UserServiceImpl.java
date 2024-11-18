@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
                 byId.setActive(true);
                 byId.setServiceArea(dto.getServiceArea());
                 byId.setServiceType(dto.getServiceType());
-                byId.setRemark(dto.getRemark());
+                byId.setQualification(dto.getQualification());
                 byId.setLinks(dto.getLinks());
                 userRepository.save(byId);
             }

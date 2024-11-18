@@ -20,7 +20,4 @@ public class CustomRepositoryImpl implements CustomRepository {
         return jdbcTemplate.query("select sum(r.stars) stars,u.* from rate r inner join user u on u.id=r.user_id and u.active='1' and r.active='1' group by r.user_id order by stars desc", new UserWithStarCountRowMapper());
     }
 
-
-
-
 }
