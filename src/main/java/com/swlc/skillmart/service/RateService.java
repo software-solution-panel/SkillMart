@@ -12,5 +12,6 @@ import org.springframework.http.ResponseEntity;
 public interface RateService {
     ResponseEntity<StandardResponse<?>> addRate(RateDTO dto);
     ResponseEntity<StandardResponse<?>> findAllRatesForUser(Integer userId);
+    ResponseEntity<StandardResponse<?>> findUserOrderByRateStarCount();
 
 }

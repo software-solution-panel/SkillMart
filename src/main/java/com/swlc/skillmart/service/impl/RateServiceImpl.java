@@ -2,8 +2,10 @@ package com.swlc.skillmart.service.impl;
 
 import com.swlc.skillmart.dto.RateDTO;
 import com.swlc.skillmart.dto.UserDTO;
+import com.swlc.skillmart.dto.UserWithStarCountDTO;
 import com.swlc.skillmart.entity.Rate;
 import com.swlc.skillmart.entity.User;
+import com.swlc.skillmart.repository.CustomRepository;
 import com.swlc.skillmart.repository.RateRepository;
 import com.swlc.skillmart.repository.UserRepository;
 import com.swlc.skillmart.service.RateService;
@@ -34,6 +36,9 @@ public class RateServiceImpl implements RateService {
 
     @Autowired
     private RateRepository rateRepository;
+
+    @Autowired
+    private CustomRepository customRepository;
 
     @Override
     public ResponseEntity<StandardResponse<?>> addRate(RateDTO dto) {
@@ -77,12 +82,16 @@ public class RateServiceImpl implements RateService {
         return new ResponseEntity<>(new StandardResponse<>(200, "Success", list), HttpStatus.OK);
     }
 
-
-
-
-
-
-
-
+    @Override
+    public ResponseEntity<StandardResponse<?>> findUserOrderByRateStarCount() {
+        List<UserWithStarCountDTO> list=null;
+        try {
+            list = customRepository.findUserOrderByRateStarCount();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot save","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Success", list), HttpStatus.OK);
+    }
 
 }

@@ -38,6 +38,11 @@ public class RateController {
         } else return rateService.findAllRatesForUser(userId);
     }
 
+    @GetMapping("/findUserOrderByRateStarCount")
+    private ResponseEntity<StandardResponse<?>> findUserOrderByRateStarCount() {
+        return rateService.findUserOrderByRateStarCount();
+    }
+
 
 
 
