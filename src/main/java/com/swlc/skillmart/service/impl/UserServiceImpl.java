@@ -148,7 +148,6 @@ public class UserServiceImpl implements UserService {
             if (byId == null) {
                 return new ResponseEntity<>(new StandardResponse<>(HttpStatus.NOT_FOUND.value(), "User Not found for update","Not Found"), HttpStatus.NOT_FOUND);
             } else {
-                byId.setType(dto.getType());
                 byId.setFirstName(dto.getFirstName());
                 byId.setLastName(dto.getLastName());
                 byId.setAddress(dto.getAddress());
@@ -188,9 +187,4 @@ public class UserServiceImpl implements UserService {
         }
         return new ResponseEntity<>(new StandardResponse<>(200, "User remove success", byId), HttpStatus.OK);
     }
-
-
-
-
-
 }

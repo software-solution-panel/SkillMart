@@ -17,7 +17,6 @@ public class UserWithStarCountRowMapper implements RowMapper<UserWithStarCountDT
         dto.setAddress(rs.getString("address"));
         dto.setMobile(rs.getString("mobile"));
         dto.setAvailable(rs.getBoolean("available"));
-        dto.setType(rs.getString("type"));
         dto.setServiceArea(rs.getString("service_area"));
         dto.setServiceType(rs.getString("service_type"));
         dto.setQualification(rs.getString("qualification"));

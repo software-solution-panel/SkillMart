@@ -23,7 +23,6 @@ public class UserDTO implements Serializable {
     private String address;
     private String mobile;
     private Boolean available;
-    private String type;
     private String serviceArea;
     private String serviceType;
     private String qualification;
