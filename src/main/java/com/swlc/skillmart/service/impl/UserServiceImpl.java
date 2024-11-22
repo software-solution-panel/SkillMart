@@ -33,6 +33,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<StandardResponse<?>> addUser(UserDTO dto) {
         try {
+            boolean b = userRepository.existsByMobile(dto.getMobile());
+            if (b) {
+                return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "mobile is already exist", "Enter valid mobile"), HttpStatus.BAD_REQUEST);
+            }
             User map = modelMapper.map(dto, User.class);
             map.setActive(true);
             userRepository.save(map);
@@ -84,6 +88,19 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
     }
 
+
+    @Override
+    public ResponseEntity<StandardResponse<?>> findAllActiveLikeByFirstNameOrLastName(String name) {
+        List<UserDTO> userDTOList=null;
+        try {
+            List<User> allByActive = userRepository.findAllActiveLikeByFirstNameOrLastName(name);
+            userDTOList = Arrays.asList(modelMapper.map(allByActive, UserDTO[].class));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot Get All Active ","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
+    }
 
     @Override
     public ResponseEntity<StandardResponse<?>> findAllAvailableUsers() {

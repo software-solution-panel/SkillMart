@@ -13,6 +13,7 @@ public interface UserService {
     ResponseEntity<StandardResponse<?>> findAllActiveUsers();
     ResponseEntity<StandardResponse<?>> findAllUsers();
     ResponseEntity<StandardResponse<?>> findAllActiveAvailableUsers();
+    ResponseEntity<StandardResponse<?>> findAllActiveLikeByFirstNameOrLastName(String name);
     ResponseEntity<StandardResponse<?>> findAllAvailableUsers();
     ResponseEntity<StandardResponse<?>> findAllByServiceArea(String serviceArea);
     ResponseEntity<StandardResponse<?>> findAllByServiceType(String serviceType);

@@ -14,6 +14,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(nativeQuery = true, value = "select * from user where active=true and available=true")
     List<User> findAllActiveAvailableUsers();
 
+    @Query(nativeQuery = true, value = "select * from user where active=1 and (first_name LIKE CONCAT('%', :name, '%') OR last_name LIKE CONCAT('%', :name, '%'));")
+    List<User> findAllActiveLikeByFirstNameOrLastName(String name);
+
     @Query(nativeQuery = true, value = "select * from user where available=true")
     List<User> findAllAvailableUsers();
 
@@ -25,6 +28,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(nativeQuery = true, value = "select * from user where service_type=:serviceType and active=1 ")
     List<User> findAllByServiceType(@Param("serviceType") String serviceType);
+
+    boolean existsByMobile(String mobile);
 
 
 }

@@ -2,6 +2,7 @@ package com.swlc.skillmart.controller;
 
 import com.swlc.skillmart.dto.UserDTO;
 import com.swlc.skillmart.service.UserService;
+import com.swlc.skillmart.util.MobileNumberValidator;
 import com.swlc.skillmart.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class UserController {
 
     @PostMapping("/adduser")
     private ResponseEntity<StandardResponse<?>> addUser(@RequestBody UserDTO dto) {
+        if (!MobileNumberValidator.isValidMobileNumber(dto.getMobile())) {
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid mobile number", "mobile validation problem"), HttpStatus.BAD_REQUEST);
+        }
         return userService.addUser(dto);
     }
 
@@ -39,6 +43,10 @@ public class UserController {
     @GetMapping("/findAllActiveAvailableUsers")
     private ResponseEntity<StandardResponse<?>> findAllActiveAvailableUsers() {
         return userService.findAllActiveAvailableUsers();
+    }
+    @GetMapping("/findAllActiveLikeByFirstNameOrLastName")
+    private ResponseEntity<StandardResponse<?>> findAllActiveLikeByFirstNameOrLastName(@RequestParam String name) {
+        return userService.findAllActiveLikeByFirstNameOrLastName(name);
     }
 
     @GetMapping("/findAllAvailableUsers")

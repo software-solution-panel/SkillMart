@@ -17,7 +17,7 @@ public class CustomRepositoryImpl implements CustomRepository {
 
     @Override
     public List<UserWithStarCountDTO> findUserOrderByRateStarCount(){
-        return jdbcTemplate.query("select sum(r.stars) stars,u.* from rate r inner join user u on u.id=r.user_id and u.active='1' and r.active='1' group by r.user_id order by stars desc", new UserWithStarCountRowMapper());
+        return jdbcTemplate.query("select sum(r.stars) stars,u.* from rate r right outer join user u on u.id=r.user_id and u.active='1' and r.active='1' group by u.id order by stars desc", new UserWithStarCountRowMapper());
     }
 
 }
