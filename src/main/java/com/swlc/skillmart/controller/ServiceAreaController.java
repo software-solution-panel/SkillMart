@@ -1,6 +1,7 @@
 package com.swlc.skillmart.controller;
 
 import com.swlc.skillmart.dto.RateDTO;
+import com.swlc.skillmart.dto.ServiceAreaDTO;
 import com.swlc.skillmart.service.RateService;
 import com.swlc.skillmart.service.ServiceAreaService;
 import com.swlc.skillmart.service.UserService;
@@ -31,6 +32,11 @@ public class ServiceAreaController {
     @PostMapping("/addServiceArea")
     public ResponseEntity<StandardResponse<?>> addServiceArea(@RequestParam String serviceArea) {
         return serviceAreaService.addServiceArea(serviceArea);
+    }
+
+    @PutMapping("/updateServiceArea")
+    public ResponseEntity<StandardResponse<?>> updateServiceArea(@RequestBody ServiceAreaDTO serviceAreaDTO) {
+        return serviceAreaService.updateServiceArea(serviceAreaDTO);
     }
 
 
