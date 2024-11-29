@@ -78,4 +78,24 @@ public class ServiceAreaServiceImpl implements ServiceAreaService {
 
 
 
+    @Override
+    public ResponseEntity<StandardResponse<?>> removeServiceAreaById(Integer areaId) {
+        try {
+            if (areaId != null) {
+                Optional<ServiceArea> byId = repository.findById(Long.valueOf(areaId));
+                if (byId.isPresent()){
+                    ServiceArea serviceArea = byId.get();
+                    repository.deleteById(Long.valueOf(serviceArea.getAreaId()));
+                } else {
+                    return new ResponseEntity<>(new StandardResponse<>(HttpStatus.NOT_FOUND.value(), "Cannot find to delete","Not Found"), HttpStatus.NOT_FOUND);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot delete","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Service Area delete Success", "OK"), HttpStatus.OK);
+    }
+
+
 }

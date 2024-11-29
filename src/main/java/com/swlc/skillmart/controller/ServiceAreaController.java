@@ -40,6 +40,14 @@ public class ServiceAreaController {
     }
 
 
+    @DeleteMapping("/removeServiceAreaById")
+    private ResponseEntity<StandardResponse<?>> removeUserById(@RequestParam Integer id) {
+        if (id != null){
+            return serviceAreaService.removeServiceAreaById(id);
+        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid area id", "Area id not valid"), HttpStatus.BAD_REQUEST);
+    }
+
+
 
 
 }
