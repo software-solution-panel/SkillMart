@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -45,7 +46,7 @@ public class ServiceAreaServiceImpl implements ServiceAreaService {
     @Override
     public ResponseEntity<StandardResponse<?>> addServiceArea(String serviceArea) {
         try {
-            if (serviceArea == null) {
+            if (serviceArea != null) {
                 ServiceArea entity = new ServiceArea();
                 entity.setAreaName(serviceArea);
                 repository.save(entity);
@@ -57,5 +58,43 @@ public class ServiceAreaServiceImpl implements ServiceAreaService {
         return new ResponseEntity<>(new StandardResponse<>(200, "Service Area Save Success", "OK"), HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<StandardResponse<?>> updateServiceArea(ServiceAreaDTO areaDTO) {
+        try {
+            if (areaDTO.getAreaId() != null) {
+                Optional<ServiceArea> byId = repository.findById(Long.valueOf(areaDTO.getAreaId()));
+                if (byId.isPresent()){
+                    ServiceArea serviceArea = byId.get();
+                    serviceArea.setAreaName(areaDTO.getAreaName());
+                    repository.save(serviceArea);
+                } else {
+                    return new ResponseEntity<>(new StandardResponse<>(HttpStatus.NOT_FOUND.value(), "Cannot find to update","Not Found"), HttpStatus.NOT_FOUND);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot update","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Service Area update Success", "OK"), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<StandardResponse<?>> removeServiceAreaById(Integer areaId) {
+        try {
+            if (areaId != null) {
+                Optional<ServiceArea> byId = repository.findById(Long.valueOf(areaId));
+                if (byId.isPresent()){
+                    ServiceArea serviceArea = byId.get();
+                    repository.deleteById(Long.valueOf(serviceArea.getAreaId()));
+                } else {
+                    return new ResponseEntity<>(new StandardResponse<>(HttpStatus.NOT_FOUND.value(), "Cannot find to delete","Not Found"), HttpStatus.NOT_FOUND);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot delete","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Service Area delete Success", "OK"), HttpStatus.OK);
+    }
 
 }

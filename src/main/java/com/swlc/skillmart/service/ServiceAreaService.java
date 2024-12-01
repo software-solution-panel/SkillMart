@@ -9,4 +9,7 @@ import java.util.List;
 public interface ServiceAreaService {
     ResponseEntity<StandardResponse<?>> getAllServiceArea();
     ResponseEntity<StandardResponse<?>> addServiceArea(String serviceArea);
+    ResponseEntity<StandardResponse<?>> updateServiceArea(ServiceAreaDTO areaDTO);
+    ResponseEntity<StandardResponse<?>> removeServiceAreaById(Integer id);
+
 }

@@ -1,6 +1,7 @@
 package com.swlc.skillmart.controller;
 
 import com.swlc.skillmart.dto.RateDTO;
+import com.swlc.skillmart.dto.ServiceAreaDTO;
 import com.swlc.skillmart.service.RateService;
 import com.swlc.skillmart.service.ServiceAreaService;
 import com.swlc.skillmart.service.UserService;
@@ -34,6 +35,18 @@ public class ServiceAreaController {
     }
 
 
+    @PutMapping("/updateServiceArea")
+    public ResponseEntity<StandardResponse<?>> updateServiceArea(@RequestBody ServiceAreaDTO serviceAreaDTO) {
+        return serviceAreaService.updateServiceArea(serviceAreaDTO);
+    }
+
+
+    @DeleteMapping("/removeServiceAreaById")
+    private ResponseEntity<StandardResponse<?>> removeUserById(@RequestParam Integer id) {
+        if (id != null){
+            return serviceAreaService.removeServiceAreaById(id);
+        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid area id", "Area id not valid"), HttpStatus.BAD_REQUEST);
+    }
 
 
 }
