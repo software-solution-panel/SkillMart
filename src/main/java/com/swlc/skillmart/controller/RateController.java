@@ -43,7 +43,13 @@ public class RateController {
         return rateService.findUserOrderByRateStarCount();
     }
 
-
+    @GetMapping("/findUserByServiceAreaLike")
+    private ResponseEntity<StandardResponse<?>> findUserByServiceAreaLike(@RequestParam String serviceArea) {
+        if (serviceArea != null) {
+            return rateService.findUserByServiceAreaLike(serviceArea);
+        } else
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid service area", "service area not valid"), HttpStatus.BAD_REQUEST);
+    }
 
 
 

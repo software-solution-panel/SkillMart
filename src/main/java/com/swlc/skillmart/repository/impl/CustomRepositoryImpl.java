@@ -20,4 +20,9 @@ public class CustomRepositoryImpl implements CustomRepository {
         return jdbcTemplate.query("select sum(r.stars) stars,u.* from rate r right outer join user u on u.id=r.user_id and u.active='1' and r.active='1' group by u.id order by stars desc", new UserWithStarCountRowMapper());
     }
 
+    @Override
+    public List<UserWithStarCountDTO> findUserByServiceAreaLike(String serviceArea) {
+        return jdbcTemplate.query("select sum(r.stars) stars,u.* from rate r right outer join user u on u.id=r.user_id and u.active='1' and r.active='1' and u.service_area like '%"+serviceArea.trim()+"%' group by u.id order by stars desc", new UserWithStarCountRowMapper());
+    }
+
 }

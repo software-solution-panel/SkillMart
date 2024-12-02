@@ -1,8 +1,6 @@
 package com.swlc.skillmart.controller;
 
-import com.swlc.skillmart.dto.ServiceAreaDTO;
 import com.swlc.skillmart.dto.ServiceTypeDTO;
-import com.swlc.skillmart.service.ServiceAreaService;
 import com.swlc.skillmart.service.ServiceTypeService;
 import com.swlc.skillmart.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +28,6 @@ public class ServiceTypeController {
 
     @PostMapping("/addServiceType")
     public ResponseEntity<StandardResponse<?>> addServiceArea(@RequestParam String serviceType) {
-        System.out.println("serviceType = " + serviceType);
         return typeService.addServiceType(serviceType);
     }
 

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CustomRepository {
     public List<UserWithStarCountDTO> findUserOrderByRateStarCount();
+    public List<UserWithStarCountDTO> findUserByServiceAreaLike(String serviceArea);
 }

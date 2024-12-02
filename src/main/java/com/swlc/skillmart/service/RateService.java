@@ -13,5 +13,8 @@ public interface RateService {
     ResponseEntity<StandardResponse<?>> addRate(RateDTO dto);
     ResponseEntity<StandardResponse<?>> findAllRatesForUser(Integer userId);
     ResponseEntity<StandardResponse<?>> findUserOrderByRateStarCount();
+    ResponseEntity<StandardResponse<?>> findUserByServiceAreaLike(String serviceAre);
+
+
 
 }

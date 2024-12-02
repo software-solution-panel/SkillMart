@@ -96,4 +96,16 @@ public class RateServiceImpl implements RateService {
         return new ResponseEntity<>(new StandardResponse<>(200, "Success", list), HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<StandardResponse<?>> findUserByServiceAreaLike(String serviceAre) {
+        List<UserWithStarCountDTO> list=null;
+        try {
+            list = customRepository.findUserByServiceAreaLike(serviceAre);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot save","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(new StandardResponse<>(200, "Success", list), HttpStatus.OK);
+    }
+
 }

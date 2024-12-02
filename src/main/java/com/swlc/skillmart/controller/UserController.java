@@ -44,6 +44,7 @@ public class UserController {
     private ResponseEntity<StandardResponse<?>> findAllActiveAvailableUsers() {
         return userService.findAllActiveAvailableUsers();
     }
+
     @GetMapping("/findAllActiveLikeByFirstNameOrLastName")
     private ResponseEntity<StandardResponse<?>> findAllActiveLikeByFirstNameOrLastName(@RequestParam String name) {
         return userService.findAllActiveLikeByFirstNameOrLastName(name);
@@ -53,42 +54,51 @@ public class UserController {
     private ResponseEntity<StandardResponse<?>> findAllAvailableUsers() {
         return userService.findAllAvailableUsers();
     }
+
     @GetMapping("/findAllByServiceArea")
     private ResponseEntity<StandardResponse<?>> findAllByServiceArea(@RequestParam String serviceArea) {
-        if (serviceArea != null){
+        if (serviceArea != null) {
             return userService.findAllByServiceArea(serviceArea);
-        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid service area", "service area not valid"), HttpStatus.BAD_REQUEST);
+        } else
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid service area", "service area not valid"), HttpStatus.BAD_REQUEST);
     }
+
 
     @GetMapping("/findAllByServiceType")
     private ResponseEntity<StandardResponse<?>> findAllByServiceType(@RequestParam String serviceType) {
-        if (serviceType != null){
+        if (serviceType != null) {
             return userService.findAllByServiceType(serviceType);
-        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid service type", "service type not valid"), HttpStatus.BAD_REQUEST);
+        } else
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid service type", "service type not valid"), HttpStatus.BAD_REQUEST);
     }
 
 
     @GetMapping("/findById")
     private ResponseEntity<StandardResponse<?>> findById(@RequestParam Integer id) {
-        if (id != null){
+        if (id != null) {
             return userService.findById(id);
-        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid user id", "User id not valid"), HttpStatus.BAD_REQUEST);
+        } else
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid user id", "User id not valid"), HttpStatus.BAD_REQUEST);
     }
 
 
     @PutMapping("/alterUserById")
-    private ResponseEntity<StandardResponse<?>> alterUserById(@RequestParam Integer id,@RequestBody UserDTO dto) {
-        if (id != null){
-            return userService.alterUserById(dto,id);
-        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid user id", "User id not valid"), HttpStatus.BAD_REQUEST);
+    private ResponseEntity<StandardResponse<?>> alterUserById(@RequestParam Integer id, @RequestBody UserDTO dto) {
+        if (id != null) {
+            return userService.alterUserById(dto, id);
+        } else
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid user id", "User id not valid"), HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/removeUserById")
     private ResponseEntity<StandardResponse<?>> removeUserById(@RequestParam Integer id) {
-        if (id != null){
+        if (id != null) {
             return userService.removeUserById(id);
-        } else return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid user id", "User id not valid"), HttpStatus.BAD_REQUEST);
+        } else
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid user id", "User id not valid"), HttpStatus.BAD_REQUEST);
     }
+
+
 
 
 
