@@ -21,6 +21,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/signin", "/api/v1/auth/login").permitAll() // Allow public access to specific endpoint
                         .requestMatchers("/api/v1/rate/**").permitAll()
                         .requestMatchers("/api/v1/user/**").permitAll()
+                        .requestMatchers("/api/v1/serviceType/**").permitAll()
+                        .requestMatchers("/api/v1/serviceArea/**").permitAll()
                         .anyRequest().authenticated() // Require authentication for all other endpoints
                 );
         return http.build();
