@@ -21,6 +21,11 @@ public class CustomRepositoryImpl implements CustomRepository {
     }
 
     @Override
+    public int findAllByOtherServiceType() {
+        return jdbcTemplate.queryForObject("select count(*) from user where active=1 and service_type not in ('carpenter','plumber','cleaner','electrician') ",Integer.class);
+    }
+
+    @Override
     public List<UserWithStarCountDTO> findUserByServiceAreaLike(String serviceArea) {
         return jdbcTemplate.query("select sum(r.stars) stars,u.* from rate r right outer join user u on u.id=r.user_id and u.active='1' and r.active='1' and u.service_area like '%"+serviceArea.trim()+"%' group by u.id order by stars desc", new UserWithStarCountRowMapper());
     }

@@ -2,6 +2,7 @@ package com.swlc.skillmart.service.impl;
 
 import com.swlc.skillmart.dto.UserDTO;
 import com.swlc.skillmart.entity.User;
+import com.swlc.skillmart.repository.CustomRepository;
 import com.swlc.skillmart.repository.UserRepository;
 import com.swlc.skillmart.service.UserService;
 import com.swlc.skillmart.util.StandardResponse;
@@ -14,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.random.RandomGeneratorFactory;
 
 /**
  * @author Chathumal Jayasingha | [chathumaljayasingha@hotmail.com]
@@ -31,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CustomRepository customRepository;
 
     @Override
     public ResponseEntity<StandardResponse<?>> addUser(UserDTO dto) {
@@ -128,6 +130,17 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot Get Users by service area","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(new StandardResponse<>(200, "Get success", userDTOList), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<StandardResponse<?>> findAllByOtherServiceType() {
+        try {
+            int allByOtherServiceType = customRepository.findAllByOtherServiceType();
+            return new ResponseEntity<>(new StandardResponse<>(200, "Get success", allByOtherServiceType), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot Get Users by service area","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @Override
     public ResponseEntity<StandardResponse<?>> findAllByServiceType(String serviceType) {

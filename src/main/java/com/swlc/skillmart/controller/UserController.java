@@ -63,6 +63,11 @@ public class UserController {
             return new ResponseEntity<>(new StandardResponse<>(HttpStatus.BAD_REQUEST.value(), "Enter valid service area", "service area not valid"), HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/findAllByOtherServiceType")
+    private ResponseEntity<StandardResponse<?>> findAllByOtherServiceType() {
+        return userService.findAllByOtherServiceType();
+    }
+
 
     @GetMapping("/findAllByServiceType")
     private ResponseEntity<StandardResponse<?>> findAllByServiceType(@RequestParam String serviceType) {

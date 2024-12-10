@@ -16,6 +16,7 @@ public interface UserService {
     ResponseEntity<StandardResponse<?>> findAllActiveLikeByFirstNameOrLastName(String name);
     ResponseEntity<StandardResponse<?>> findAllAvailableUsers();
     ResponseEntity<StandardResponse<?>> findAllByServiceArea(String serviceArea);
+    ResponseEntity<StandardResponse<?>> findAllByOtherServiceType();
     ResponseEntity<StandardResponse<?>> findAllByServiceType(String serviceType);
     ResponseEntity<StandardResponse<?>> findById(Integer id);
     ResponseEntity<StandardResponse<?>> alterUserById(UserDTO dto,Integer id);
