@@ -15,4 +15,6 @@ import java.io.Serializable;
 @Data
 public class UserWithStarCountDTO extends UserDTO implements Serializable {
     private Integer stars;
+    private Integer rateCount;
+    private Integer starRate;
 }

@@ -22,6 +22,8 @@ public class UserWithStarCountRowMapper implements RowMapper<UserWithStarCountDT
         dto.setQualification(rs.getString("qualification"));
         dto.setLinks(rs.getString("links"));
         dto.setStars(rs.getInt("stars"));
+        dto.setRateCount(rs.getInt("rateCount"));
+
         return dto;
     }
 

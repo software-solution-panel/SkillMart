@@ -21,6 +21,7 @@ public class Rate implements Serializable {
     private String username;
     private String contact;
     private String comment;
+    @Column(nullable = false)
     private Integer stars;
     private Boolean active;
     @ManyToOne(cascade = CascadeType.ALL)

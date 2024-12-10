@@ -89,6 +89,18 @@ public class RateServiceImpl implements RateService {
         List<UserWithStarCountDTO> list=null;
         try {
             list = customRepository.findUserOrderByRateStarCount();
+            for (int i = 0; i < list.size(); i++) {
+                UserWithStarCountDTO userWithStarCountDTO = list.get(i);
+                if (userWithStarCountDTO.getRateCount() > 0){
+                    Integer stars = userWithStarCountDTO.getStars();
+                    Integer rateCount = userWithStarCountDTO.getRateCount();
+                    int startRate = stars / rateCount;
+                    userWithStarCountDTO.setStarRate(startRate);
+                } else {
+                    userWithStarCountDTO.setStarRate(0);
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new StandardResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Cannot save","Internal Server Problem"), HttpStatus.INTERNAL_SERVER_ERROR);
